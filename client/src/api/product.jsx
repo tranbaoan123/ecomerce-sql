@@ -1,0 +1,53 @@
+import axios from "axios"
+export const createProduct = async (token, form) => {
+    return axios.post('http://localhost:8080/api/product', form, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+export const listProduct = async (token, form) => {
+    return axios.get('http://localhost:8080/api/product')
+}
+
+
+
+export const filterProduct = async (arg) => {
+    return axios.post('http://localhost:8080/api/product/search/filters', arg)
+}
+
+
+export const getProductById = async (id) => {
+    return axios.get('http://localhost:8080/api/product/' + id)
+}
+export const uploadImages = async (token, data) => {
+    return axios.post('http://localhost:8080/api/product/upload-images', { image: data }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+export const updateProduct = async (token, id, form) => {
+
+    return axios.put('http://localhost:8080/api/product/' + id, form, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+export const deleteImages = async (token, public_id) => {
+    return axios.post('http://localhost:8080/api/product/delete-images', { public_id }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+
+export const deleteProduct = async (token, id) => {
+    return axios.delete('http://localhost:8080/api/product/' + id, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}

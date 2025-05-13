@@ -1,0 +1,5 @@
+export * as authController from './auth.js'
+export * as categoryController from './category.js'
+export * as productController from './product.js'
+export * as userController from './user.js'
+export * as adminController from './admin.js'
