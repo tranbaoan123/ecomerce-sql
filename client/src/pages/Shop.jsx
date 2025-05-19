@@ -1,13 +1,23 @@
 import { useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
+import Cart from "../components/user/cart/Cart"
 import ProductCard from "../components/user/product-card/ProductCard"
-import useEcomStore from "../store/store"
 import SearchBar from "../components/user/search-bar/SearchBar"
+import useEcomStore from "../store/store"
 
 const Shop = () => {
     const getProductList = useEcomStore(state => state.getProductList)
+    const getProductListByCategoryId = useEcomStore(state => state.getProductListByCategoryId)
     const productList = useEcomStore(state => state.products)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const queryCategoryId = searchParams.get('categoryId')
+
     useEffect(() => {
-        getProductList()
+        if (queryCategoryId) {
+            getProductListByCategoryId(queryCategoryId)
+        } else {
+            getProductList()
+        }
     }, [])
     return (
         <div className="flex">
@@ -23,7 +33,7 @@ const Shop = () => {
                 </div>
             </div>
             <div className="w-1/4 p-4 bg-gray-100 h-screen overflow-y-auto">
-                Carts
+                <Cart />
             </div>
         </div>
     )

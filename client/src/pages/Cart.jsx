@@ -1,8 +1,9 @@
 import React from 'react'
+import ListCart from '../components/user/list-cart/ListCart'
 
 const Cart = () => {
     return (
-        <div>Cart</div>
+        <div><ListCart /></div>
     )
 }
 

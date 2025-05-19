@@ -15,21 +15,13 @@ const ProtectRouteAdmin = ({ element }) => {
         const getCurrentAdmin = async (token) => {
             try {
                 const data = await currentAdmin(token)
-                console.log(data);
             } catch (error) {
                 setErrMessage(error.response.data.message);
                 setOk(false)
             }
 
         }
-        // if (user.role === 'admin' && token) {
-        //     // send to back
-        //     currentAdmin(token)
-        //         .then((res) => setOk(true))
-        //         .catch((err) => setOk(false))
-        // }
-        const response = getCurrentAdmin(token)
-        console.log(response);
+        getCurrentAdmin(token)
 
     }, [])
 

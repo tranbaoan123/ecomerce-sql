@@ -42,8 +42,15 @@ export const getOne = async(req,res)=>{
 }
 
 export const getAllProducts = async(req,res)=>{
+    console.log("Query",req.query);
     try {
-        const products = await prisma.product.findMany({orderBy:{createdAt:'desc'},include:{category:true,images:true}})
+        const categoryId = req.query.categoryId
+        let products = []
+        if(categoryId){
+              products = await prisma.product.findMany({where:{categoryId:Number(categoryId)},orderBy:{createdAt:'desc'},include:{category:true,images:true}})
+        }else{
+            products = await prisma.product.findMany({orderBy:{createdAt:'desc'},include:{category:true,images:true}})
+        }
         return res.status(200).json({message:'Fetched Products Successfully',data:products})
     } catch (error) {
         console.log(error);

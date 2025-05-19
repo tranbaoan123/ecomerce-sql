@@ -18,13 +18,26 @@ export const createCategory = async(req,res)=>{
 
 export const getAllCategories = async(req,res)=>{
     try {
-        const categories = await prisma.category.findMany()
-        return res.status(200).json({message:'Fetched Categories Successfully',data:categories})
+        const page = Number(req.query.page)
+        let filterCategories = []
+        let allCategories = await prisma.category.findMany()
+        const categoryPerPage = process.env.LIMIT_CATEGORY_PER_PAGE
+        const maxPageSize = Math.ceil(allCategories.length / Number(categoryPerPage))
+        if(page){
+            const skip = (page - 1) * categoryPerPage
+             filterCategories = await prisma.category.findMany({skip,take:Number(categoryPerPage)})
+            return res.status(200).json({message:'Fetched Categories Successfully',data:filterCategories,maxPageSize})
+        }else{
+            return res.status(200).json({message:'Fetched Categories Successfully',data:allCategories,maxPageSize})
+        }
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Internal Server Error'})
     }
 }
+
+
+
 export const removeCategory = async(req,res)=>{
     try {
         let {id} = req.params

@@ -1,8 +1,8 @@
-import React from 'react'
+import SummaryCard from "../components/user/summary-card/SummaryCard"
 
 const Checkout = () => {
     return (
-        <div>Checkout</div>
+        <div><SummaryCard /></div>
     )
 }
 

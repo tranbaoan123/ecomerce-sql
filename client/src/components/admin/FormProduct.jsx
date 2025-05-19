@@ -4,6 +4,7 @@ import { createProduct, deleteProduct } from '../../api/product'
 import { toast } from 'react-toastify'
 import UploadImages from './UploadImages'
 import { Link } from 'react-router-dom'
+import { numberWithCommas } from '../../utils/helper'
 const FormProduct = () => {
     const initialState = {
         title: "",
@@ -89,7 +90,7 @@ const FormProduct = () => {
                                     <input type="number" className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" value={formValues.price} placeholder='Price' name='price' onChange={handleOnChange} />
                                 </td>
                                 <td className="py-3 px-4">
-                                    <input type="number" className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" value={formValues.quantity} placeholder='Quantity' name='quantity' onChange={handleOnChange} />
+                                    <input type="text" className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" value={formValues.quantity} placeholder='Quantity' name='quantity' onChange={handleOnChange} />
                                 </td>
                                 <td className="py-3 px-4">
                                     <select className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500" name='categoryId' onChange={handleOnChange} required value={formValues.categoryId}>

@@ -1,6 +1,5 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { LayoutDashboard } from 'lucide-react';
+import { ArrowLeftToLine, House, LayoutDashboard } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 const SidebarAdmin = () => {
     return (
         <div className='bg-gray-800 w-64 text-white flex flex-col h-screen'>
@@ -23,10 +22,20 @@ const SidebarAdmin = () => {
                     <LayoutDashboard />
                     <span>Product</span>
                 </NavLink>
+                <NavLink to={'orders'} className={({ isActive }) => `flex items-center p-2 gap-2 hover:bg-gray-700 ${isActive ? 'bg-gray-900 text-white' : ''}`}>
+                    <LayoutDashboard />
+                    <span>Orders</span>
+                </NavLink>
             </nav>
             <footer>
+
+                <NavLink to={'/'} className={({ isActive }) => `flex items-center p-2 gap-2 hover:bg-gray-700 ${isActive ? 'bg-gray-900 p-2 text-white' : ''}`}>
+                    <House />
+                    <span>Go To Homepage</span>
+                </NavLink>
+
                 <NavLink className={({ isActive }) => `flex items-center p-2 gap-2 hover:bg-gray-700 ${isActive ? 'bg-gray-900 p-2 text-white' : ''}`}>
-                    <LayoutDashboard />
+                    <ArrowLeftToLine />
                     <span>Logout</span>
                 </NavLink>
             </footer>

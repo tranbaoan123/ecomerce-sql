@@ -138,7 +138,7 @@ export const saveAddress = async(req,res)=>{
                 address
             }
         })
-        return res.status(200).json({message:'Save User Address Successfully'})
+        return res.status(200).json({message:'Saved User Address Successfully'})
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Internal Server Error'})
@@ -168,7 +168,9 @@ export const saveOrder = async(req,res)=>{
                     message:`Product ${product?.title} not found or out of stock`
                 })
             }
-            // Create Order
+            
+        }
+        // Create Order
             const order = await prisma.order.create({
                 data:{
                     products:{
@@ -181,10 +183,10 @@ export const saveOrder = async(req,res)=>{
                     orderedBy:{
                         connect:{id:req.user.id}
                     },
-                    cartTotal:userCart.cartTotal
+                    cartTotal:userCart.cartTotal,
+                    amount:userCart.cartTotal
                 }
             })
-        }
         // Update Product
         const update = userCart.products.map((item)=>({
             where:{id:item.productId},
@@ -199,8 +201,7 @@ export const saveOrder = async(req,res)=>{
         await prisma.cart.deleteMany({
             where:{orderedById: Number(req.user.id)}
         })
-    
-        return res.status(200).json({message:'Save User Order Successfully',data:order})
+        return res.status(200).json({message:'Save User Order Successfully'})
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:'Internal Server Error'})
@@ -218,7 +219,6 @@ export const getOrder = async(req,res)=>{
                 }
             }
         })
-        console.log(orders);
         if(orders.length ===0){
             return res.status(400).json({message:'No Orders'})
         }

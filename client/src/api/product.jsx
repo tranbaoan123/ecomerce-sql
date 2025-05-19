@@ -6,8 +6,18 @@ export const createProduct = async (token, form) => {
         }
     })
 }
-export const listProduct = async (token, form) => {
+export const listProduct = async () => {
     return axios.get('http://localhost:8080/api/product')
+}
+
+export const listProductByCategoryId = async (categoryId) => {
+
+    return axios.get(`http://localhost:8080/api/product`, {
+        params: {
+            categoryId: categoryId
+        }
+    })
+
 }
 
 

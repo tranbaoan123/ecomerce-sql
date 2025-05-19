@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { createCategory, listCategory, removeCategory } from '../../api/category'
 import useEcomStore from '../../store/store'
+import Pagination from '../pagination/Pagination'
 const FormCategory = () => {
     const token = useEcomStore((state) => state.token)
     const [categoryName, setCategoryName] = useState('')
@@ -63,6 +64,7 @@ const FormCategory = () => {
                     })}
                 </tbody>
             </table>
+            <Pagination />
         </div>
     )
 }

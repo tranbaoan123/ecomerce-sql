@@ -1,6 +1,8 @@
 import { ShoppingCart } from 'lucide-react';
 import { formatVietnameseCurrency } from '../../../utils/helper';
+import useEcomStore from '../../../store/store';
 const ProductCard = ({ product }) => {
+    const addToCart = useEcomStore((state) => state.addToCart)
     return (
         <div className='border rounded-md shadow-md p-2 w-52'>
             <div>
@@ -18,7 +20,7 @@ const ProductCard = ({ product }) => {
             </div>
             <div className='flex justify-between items-center'>
                 <span className='text-sm font-bold'>{formatVietnameseCurrency(product.price)}</span>
-                <button className='bg-green-400 hover:bg-green-600 p-1 rounded-md'><ShoppingCart color='#fff' /></button>
+                <button onClick={() => addToCart(product)} className='bg-green-400 hover:bg-green-600 p-1 rounded-md'><ShoppingCart color='#fff' /></button>
             </div>
         </div>
     )
