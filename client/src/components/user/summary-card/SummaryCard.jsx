@@ -3,6 +3,7 @@ import useEcomStore from "../../../store/store"
 import { listUserCart, saveOrder, saveUserAddress } from "../../../api/user"
 import { toast } from 'react-toastify'
 import { useNavigate } from "react-router-dom"
+import { formatVietnameseCurrency } from "../../../utils/helper"
 const SummaryCard = () => {
     const navigate = useNavigate()
     const token = useEcomStore((state) => state.token)
@@ -77,10 +78,10 @@ const SummaryCard = () => {
                                 <div className="flex justify-between items-end">
                                     <div>
                                         <p>Title: {item.product.title}</p>
-                                        <p>Price: {item.count} X {item.price}</p>
+                                        <p>Price: {item.count} X {formatVietnameseCurrency(item.price)}</p>
                                     </div>
                                     <div>
-                                        <p className="text-red-500 font-bold">{item.count * item.price}</p>
+                                        <p className="text-red-500 font-bold">{formatVietnameseCurrency(item.count * item.price)}</p>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +100,7 @@ const SummaryCard = () => {
                         <div>
                             <div className="flex justify-between">
                                 <p className="font-bold">Total:</p>
-                                <p className="text-red-500 font-bold text-lg">{cartData.cartTotal}</p>
+                                <p className="text-red-500 font-bold text-lg">{formatVietnameseCurrency(cartData.cartTotal)}</p>
                             </div>
                         </div>
                         <hr />

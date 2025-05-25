@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import useEcomStore from "../../store/store"
 import { changeOrderStatus, getOrdersAdmin } from "../../api/admin"
 import { toast } from 'react-toastify'
+import moment from 'moment'
+import { formatVietnameseCurrency } from "../../utils/helper"
 const TableOrder = () => {
     const token = useEcomStore((state) => state.token)
     const [orders, setOrders] = useState([])
@@ -51,7 +53,7 @@ const TableOrder = () => {
                                 <p>{order.orderedBy.email}</p>
                                 <p>{order.orderedBy.address}</p>
                             </td>
-                            <td></td>
+                            <td>{moment(order.createdAt).format('DD/MM/YYYY')}</td>
                             <td>
 
                                 {order.products?.map((product, index) => {
@@ -63,7 +65,7 @@ const TableOrder = () => {
 
 
                             </td>
-                            <td>{order.cartTotal}</td>
+                            <td>{formatVietnameseCurrency(order.cartTotal)}</td>
                             <td>
                                 <select value={order.orderStatus} onChange={(e) => handleChangeOrderStatus(token, order.id, e.target.value)}>
                                     <option>Not Process</option>

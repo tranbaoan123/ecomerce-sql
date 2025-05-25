@@ -24,7 +24,8 @@ const ecomStore = (set, get) => ({
     actionLogout: () => {
         set({
             user: null,
-            token: null
+            token: null,
+            carts: []
         })
     },
     updateQuantity: (productId, newQuantity) => {

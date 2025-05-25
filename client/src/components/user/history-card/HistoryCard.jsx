@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { getUserOrders } from "../../../api/user"
 import useEcomStore from "../../../store/store"
+import moment from "moment"
+import { formatVietnameseCurrency } from "../../../utils/helper"
 
 const HistoryCard = () => {
     const [orders, setOrders] = useState({})
@@ -24,7 +26,7 @@ const HistoryCard = () => {
                         <div className="flex justify-between">
                             <div className="">
                                 <p className="text-sm">Order date</p>
-                                <p className="font-bold">{order?.createdAt}</p>
+                                <p className="font-bold">{moment(order?.createdAt).format('DD/MM/YYYY')}</p>
                             </div>
                             <div className=" bg-red-200 text-red-500 w-36 h-9 flex items-center justify-center rounded-full font-bold">
                                 {order?.orderStatus}
@@ -45,9 +47,9 @@ const HistoryCard = () => {
                                     {order?.products.length > 0 && order?.products.map((product, index) => {
                                         return <tr key={index} className="text-center">
                                             <td>{product.product.title}</td>
-                                            <td>{product.price}</td>
+                                            <td>{formatVietnameseCurrency(product.price)}</td>
                                             <td>{product.count}</td>
-                                            <td>{product.count * product.price}</td>
+                                            <td>{formatVietnameseCurrency(product.count * product.price)}</td>
                                         </tr>
                                     })}
 
@@ -57,7 +59,7 @@ const HistoryCard = () => {
                         {/* Total */}
                         <div className="text-right">
                             <p>Final Price</p>
-                            <p className="font-bold">{order?.amount}</p>
+                            <p className="font-bold">{formatVietnameseCurrency(order?.amount)}</p>
                         </div>
                     </div>
                 })}

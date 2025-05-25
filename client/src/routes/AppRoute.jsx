@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import EditProduct from '../components/admin/EditProduct'
-import Payment from '../components/user/payment/Payment'
 import Layout from '../layouts/Layout'
 import LayoutAdmin from '../layouts/LayoutAdmin'
 import LayoutUser from '../layouts/LayoutUser'
@@ -62,9 +61,6 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true, element: <HomeUser />
-            },
-            {
-                path: 'payment', element: <Payment />
             },
             {
                 path: 'history', element: <History />

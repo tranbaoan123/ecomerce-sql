@@ -27,6 +27,10 @@ export const filterProduct = async (arg) => {
 }
 
 
+export const listProductBy = async (sort, order, limit) => {
+    return axios.post('http://localhost:8080/api/product/productby', { sort, order, limit })
+}
+
 export const getProductById = async (id) => {
     return axios.get('http://localhost:8080/api/product/' + id)
 }

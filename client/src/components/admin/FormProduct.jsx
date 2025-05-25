@@ -4,7 +4,7 @@ import { createProduct, deleteProduct } from '../../api/product'
 import { toast } from 'react-toastify'
 import UploadImages from './UploadImages'
 import { Link } from 'react-router-dom'
-import { numberWithCommas } from '../../utils/helper'
+import { formatVietnameseCurrency, numberWithCommas } from '../../utils/helper'
 const FormProduct = () => {
     const initialState = {
         title: "",
@@ -141,7 +141,7 @@ const FormProduct = () => {
                                 {item.images.length > 0 ? <img src={item.images[0].url} className='w-24 h-24 rounded-lg' /> : <div className='w-24 h-24 bg-gray-200 flex items-center justify-center'>No Images</div>}
                             </td>
                             <td>{item.description}</td>
-                            <td>{item.price}</td>
+                            <td>{formatVietnameseCurrency(item.price)}</td>
                             <td>{item.quantity}</td>
                             <td>{item.category?.name || 'No Category'}</td>
                             <td className='flex gap-2 items-center justify-center'>
