@@ -18,12 +18,14 @@ import History from '../pages/user/History'
 import ProtectRouteAdmin from './ProtectRouteAdmin'
 import ProtectRouteUser from './ProtectRouteUser'
 import ManageOrder from '../components/admin/ManageOrder'
+import ProductDetail from '../pages/ProductDetail'
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Layout />,
         children: [
             { path: '/', element: <Home />, index: true },
+            { path: 'product/:id', element: <ProductDetail /> },
             { path: 'shop', element: <Shop /> },
             { path: 'cart', element: <ProtectRouteUser element={<Cart />} /> },
             { path: 'checkout', element: <Checkout /> },

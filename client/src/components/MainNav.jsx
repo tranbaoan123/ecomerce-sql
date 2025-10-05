@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import useEcomStore from '../store/store'
 import userAvatar from '../assets/user_avatar.svg'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 import { useState } from 'react'
 const MainNav = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -31,14 +31,23 @@ const MainNav = () => {
                             </div>
                         </NavLink>
                     </div>
-
+                    <div className='flex items-center w-[420px]'>
+                        <div className='w-full'>
+                            <form className='flex items-center relative'>
+                                <input type="text" placeholder='Search Product' className='py-2 px-4 w-full rounded-full' />
+                                <button type='submit' className='absolute right-2'>
+                                    <Search className='text-gray-500' />
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     {user ? <div className='flex gap-4 items-center'>
                         <button onClick={toggleDropdown} className='flex items-center gap-2'>
                             <img src={userAvatar} alt="" className='w-10 h-10' />
                             <ChevronDown />
                         </button>
                         {
-                            isOpen && <div className='absolute top-16 bg-white p-2'>
+                            isOpen && <div className='absolute top-16 bg-white p-2 z-50'>
                                 <Link to={'/user/history'} className='block p-2 hover:bg-gray-200'>History</Link>
                                 <Link onClick={handleLogout} className='block p-2 hover:bg-gray-200'>Logout</Link>
                             </div>

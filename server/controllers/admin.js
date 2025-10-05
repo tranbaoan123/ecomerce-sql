@@ -35,3 +35,27 @@ export const getOrderAdmin = async(req,res)=>{
         return res.status(500).json({message:"Internal Server Error"})
     }
 }
+
+export const getUserAdmin = async(req,res)=>{
+    try {
+        const users = await prisma.user.findMany({
+            omit:{
+                password:true
+            }
+        })
+        return res.status(200).json({message:'Get Users Successfully',data:users})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:"Internal Server Error"})
+    }
+}
+export const changeUserStatus = async(req,res)=>{
+    try {
+        const {id,enabled} = req.body
+        const user = await prisma.user.update({where:{id},data:{enabled}})
+        return res.status(200).json({message:'Change User Status Successfully'})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:"Internal Server Error"})
+    }
+}

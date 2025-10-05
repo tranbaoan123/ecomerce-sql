@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { updateProduct } from '../../api/product'
+import { getProductById, updateProduct } from '../../api/product'
 import useEcomStore from '../../store/store'
 import UploadImages from './UploadImages'
 const FormEditProduct = () => {
+    const navigate = useNavigate()
     const params = useParams()
     const { id } = params
-
-
     const token = useEcomStore((state) => state.token)
     const getCategoryList = useEcomStore((state) => state.getCategoryList)
-    const getProductById = useEcomStore((state) => state.getOne)
     const categoryList = useEcomStore((state) => state.categories)
-    const productById = useEcomStore((state) => state.productById)
-    const initialState = {
-        title: productById?.title,
-        description: productById?.description,
-        price: productById?.price,
-        quantity: productById?.quantity,
-        categoryId: productById?.categoryId,
-        images: productById?.images
-    }
-    const [formValues, setFormValues] = useState(initialState)
+
+    const [formValues, setFormValues] = useState({})
     const handleOnChange = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -35,15 +25,21 @@ const FormEditProduct = () => {
         try {
             const res = await updateProduct(token, id, formValues)
             toast.success(res.data.message);
-
+            navigate("/admin/product")
         } catch (error) {
             console.log(error);
         }
 
     }
     useEffect(() => {
+        const fetchProductById = async (id) => {
+            const res = await getProductById(id)
+            setFormValues(res.data.data);
+
+        }
+        fetchProductById(id)
         getCategoryList()
-        getProductById(id)
+
     }, [id])
 
     return (

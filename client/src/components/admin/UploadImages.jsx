@@ -49,7 +49,7 @@ const UploadImages = ({ formValues, setFormValues }) => {
         <div className="my-4">
             <div className="flex mx-4 gap-4 my-4">
                 {isLoading && <Loader className="animate-spin" />}
-                {formValues.images.map((item, index) => {
+                {formValues.images?.map((item, index) => {
                     return <div className='relative' key={index}>
                         <img src={item.url} alt="image file" className="w-24 h-24 hover:scale-105" />
                         <span onClick={() => handleDelete(item.public_id)} className="absolute top-0 right-0 bg-red-500 p-1 rounded-md cursor-pointer">X</span>

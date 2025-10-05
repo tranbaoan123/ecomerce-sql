@@ -89,7 +89,7 @@ export const removeProduct = async(req,res)=>{
 export const listProductBy = async(req,res)=>{
     try {
        const {sort,order,limit} = req.body
-        const products = await prisma.product.findMany({take:limit,orderBy:{[sort]:order},include:{category:true}})
+        const products = await prisma.product.findMany({take:limit,orderBy:{[sort]:order},include:{category:true,images:true}})
         return res.status(200).json({message:'Fetched Products Successfully !',data:products})
     } catch (error) {
         console.log(error);

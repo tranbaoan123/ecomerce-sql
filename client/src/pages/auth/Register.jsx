@@ -5,16 +5,19 @@ import { toast } from 'react-toastify'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import zxcvbn from 'zxcvbn'
+import { useEffect, useState } from 'react'
 const registerSchema = z.object({
     email: z.string().email({ message: 'Invalid Email' }),
     password: z.string().min(3, { message: 'Password must be at least 3 characters' }),
     confirmPassword: z.string()
 }).refine((data) => data.password === data.confirmPassword, { message: 'Password is not match', path: ["confirmPassword"] })
 const Register = () => {
+    const [passwordScore, setPasswordScore] = useState(0)
     const {
         register,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(registerSchema)
@@ -41,6 +44,14 @@ const Register = () => {
         }
 
     }
+    const validatePassword = () => {
+        let password = watch().password
+        return zxcvbn(password ? password : '').score
+    }
+    useEffect(() => {
+        setPasswordScore(validatePassword())
+    }, [watch().password])
+
     return (
         <div className='bg-gray-100 h-screen flex flex-col justify-center'>
             <form className='max-w-[50%] mx-auto bg-white shadow-md p-4 rounded-md w-full' onSubmit={handleSubmit(handleOnSubmit)}>
@@ -51,7 +62,7 @@ const Register = () => {
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                         placeholder="user@gmail.com" {...register('email')} />
                 </div>
-                {errors.email && <span className='text-red-500'>{errors.email.message}</span>}
+                {errors.email && <span className='text-red-500 text-sm'>{errors.email.message}</span>}
                 <div className="mb-6">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                     <input type="password" id="password" name="password"
@@ -60,7 +71,15 @@ const Register = () => {
                     />
                 </div>
 
-                {errors.password && <span className='text-red-500'>{errors.password.message}</span>}
+                {watch().password?.length > 0 && <div className='flex mb-6'>
+                    {
+                        Array.from(Array(5).keys()).map((_, index) => <span className='w-1/5 px-1' key={index}>
+                            <div className={`h-2 rounded ${passwordScore < 1 ? 'bg-red-500' : passwordScore < 2 ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
+                        </span>)
+                    }
+                </div>}
+
+                {errors.password && <span className='text-red-500 text-sm'>{errors.password.message}</span>}
                 <div className="mb-6">
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword"
@@ -69,7 +88,9 @@ const Register = () => {
                     />
                 </div>
 
-                {errors.confirmPassword && <span className='text-red-500'>{errors.confirmPassword.message}</span>}
+
+
+                {errors.confirmPassword && <span className='text-red-500 text-sm'>{errors.confirmPassword.message}</span>}
                 <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium">
                     Register
                 </button>

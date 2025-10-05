@@ -62,9 +62,6 @@ const SearchBar = () => {
     <div>
       <h1 className="text-2xl font-semibold mb-2">Filter Products</h1>
       <div>
-        <input type="text" className="border rounded-md px-2 py-1" placeholder="Search Product.... " onChange={(e) => setText(e.target.value)} />
-      </div>
-      <div>
         <h1 className="text-2xl font-semibold mb-2">Category</h1>
         {categoryList.length > 0 && categoryList.map((category) => {
           return <div key={category.id} className="flex gap-2">
